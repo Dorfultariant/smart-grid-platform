@@ -6,12 +6,16 @@ import PageContainer from "../components/common/PageContainer";
 import EuropeGridMap from "../components/maps/EuropeGridMap";
 import MapLayerSelector from "../components/maps/MapLayerSelector";
 import KPISection from "../components/stats/KPISection";
+import ForecastControls from "../components/forecasts/ForecastControls";
 
+import ForecastConfidenceCard from "../components/forecasts/ForecastConfidenceCard";
+
+import type { ForecastHorizon } from "../types/ForecastHorizon";
 import type { MapLayer } from "../types/MapLayer";
 
 export default function AdminDashboard() {
   const [layer, setLayer] = useState<MapLayer>("load");
-
+  const [horizon, setHorizon] = useState<ForecastHorizon>("day");
   const [showAlerts, setShowAlerts] = useState(true);
 
   return (
@@ -28,6 +32,9 @@ export default function AdminDashboard() {
               carbonIntensity={121}
             />
           </div>
+          <ForecastControls horizon={horizon} setHorizon={setHorizon} />
+
+          <ForecastConfidenceCard confidence={92} />
 
           <div className="rounded-xl border bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-xl font-semibold">Map Controls</h2>

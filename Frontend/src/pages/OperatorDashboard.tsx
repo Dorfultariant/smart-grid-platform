@@ -5,11 +5,15 @@ import DemandForecastChart from "../components/charts/DemandForecastChart";
 import RenewableForecastChart from "../components/charts/RenewableForecastChart";
 import type { MapLayer } from "../types/MapLayer";
 import { useState } from "react";
+import ForecastControls from "../components/forecasts/ForecastControls";
 
+import ForecastConfidenceCard from "../components/forecasts/ForecastConfidenceCard";
+
+import type { ForecastHorizon } from "../types/ForecastHorizon";
 export default function OperatorDashboard() {
   const [layer] = useState<MapLayer>("load");
   const [showAlerts] = useState(false);
-
+  const [horizon, setHorizon] = useState<ForecastHorizon>("day");
   return (
     <PageContainer title="Industrial Energy Consumer">
       <div className="grid gap-6 xl:grid-cols-12">
@@ -24,7 +28,9 @@ export default function OperatorDashboard() {
               carbonIntensity={121}
             />
           </div>
+          <ForecastControls horizon={horizon} setHorizon={setHorizon} />
 
+          <ForecastConfidenceCard confidence={92} />
           <div className="rounded-xl border bg-white p-6 shadow-sm">
             <h2 className="mb-4 text-xl font-semibold">Organization</h2>
 

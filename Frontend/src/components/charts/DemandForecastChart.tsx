@@ -1,6 +1,7 @@
 import {
   CategoryScale,
   Chart as ChartJS,
+  Filler,
   Legend,
   LineElement,
   LinearScale,
@@ -17,25 +18,51 @@ ChartJS.register(
   LineElement,
   Tooltip,
   Legend,
+  Filler,
 );
 
 export default function DemandForecastChart() {
-  const data = {
-    labels: ["00", "04", "08", "12", "16", "20", "24"],
-    datasets: [
-      {
-        label: "Predicted Demand",
-        data: [410, 405, 430, 470, 485, 452, 425],
-        borderColor: "#2563eb",
-      },
-    ],
-  };
+  const labels = ["00", "04", "08", "12", "16", "20", "24"];
+
+  const forecast = [410, 405, 430, 470, 485, 452, 425];
+
+  const upper = [430, 425, 455, 495, 510, 472, 445];
+
+  const lower = [390, 385, 405, 445, 460, 432, 405];
 
   return (
-    <div className="rounded-lg border bg-white p-4">
-      <h3 className="mb-4 text-lg font-semibold">Demand Forecast</h3>
+    <div className="rounded-xl border bg-white p-5 shadow-sm">
+      <div className="mb-3 flex items-center justify-between">
+        <h3 className="text-lg font-semibold">Demand Forecast</h3>
 
-      <Line data={data} />
+        <span className="text-sm text-green-600">Confidence: 92%</span>
+      </div>
+
+      <Line
+        data={{
+          labels,
+          datasets: [
+            {
+              label: "Upper Confidence",
+              data: upper,
+              borderColor: "rgba(59,130,246,0.2)",
+              pointRadius: 0,
+            },
+            {
+              label: "Predicted Demand",
+              data: forecast,
+              borderColor: "#2563eb",
+              pointRadius: 3,
+            },
+            {
+              label: "Lower Confidence",
+              data: lower,
+              borderColor: "rgba(59,130,246,0.2)",
+              pointRadius: 0,
+            },
+          ],
+        }}
+      />
     </div>
   );
 }
