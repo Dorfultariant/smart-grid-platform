@@ -1,8 +1,13 @@
 import EuropeGridMap from "../components/maps/EuropeGridMap";
 import KPISection from "../components/stats/KPISection";
 import PageContainer from "../components/common/PageContainer";
+import type { MapLayer } from "../types/MapLayer";
+import { useState } from "react";
 
 export default function PublicDashboard() {
+  const [layer] = useState<MapLayer>("load");
+  const [showAlerts] = useState(false);
+
   return (
     <PageContainer title="European Smart Grid Public (Digital Twin integration)">
       {/* <div className="grid gap-6 lg:grid-cols-4"> */}
@@ -48,7 +53,11 @@ export default function PublicDashboard() {
         </div>
 
         <div className="lg:col-span-8">
-          <EuropeGridMap />
+          <EuropeGridMap
+            role="public"
+            selectedLayer={layer}
+            showAlerts={showAlerts}
+          />
         </div>
       </div>
     </PageContainer>
